@@ -4,6 +4,10 @@ export DOCKER_BUILDKIT := 1
 export DOCKER_SCAN_SUGGEST := false
 export COMPOSE_DOCKER_CLI_BUILD := 1
 
+# Include .env file if it exists
+-include .env
+export
+
 # Cross-platform detection
 ifeq ($(OS),Windows_NT)
 	DETECTED_OS := windows
@@ -55,7 +59,7 @@ up: run
 	touch .env
 
 clean:
-	$(CONTAINER_RUNTIME) compose $(foreach file,$(wildcard compose/*.yml),-f $(file)) down --volumes --remove-orphans --rmi local
+	$(CONTAINER_RUNTIME) compose $(foreach file,$(wildcard compose/*.yml),-f $(file)) down --volumes --remove-orphans 
 	$(CONTAINER_RUNTIME) compose $(foreach file,$(wildcard compose/*.yml),-f $(file)) rm -f
 
 # Pattern rule: make start <name> uses ./compose/<name>.yml
@@ -63,14 +67,15 @@ start:
 	@echo "Usage: make start-<name>"
 
 start-%: .env
-	$(CONTAINER_RUNTIME) compose -f ./compose/$*.yml up -d
+	$(CONTAINER_RUNTIME) compose --env-file .env -f ./compose/$*.yml up -d
 
 
 # Pattern rule: make restart <name> uses ./compose/<name>.yml
 restart:
 	@echo "Usage: make restart-<name>"
 
-restart-%: down-% start-%
+restart-%:
+	$(CONTAINER_RUNTIME) compose -f ./compose/$*.yml restart
 
 # Pattern rule: make run <name> uses ./compose/<name>.yml
 run:
@@ -81,15 +86,15 @@ run-%: .env
 
 # Pattern rule: make down <name> uses ./compose/<name>.yml
 
-down:
+stop:
 	@echo "Usage: make down-<name>"
 	@echo "       make down-all (stops all containers defined in compose/*.yml)"
 
-down-%:
-	$(CONTAINER_RUNTIME) compose -f ./compose/$*.yml down
+stop-%:
+	$(CONTAINER_RUNTIME) compose --env-file .env -f ./compose/$*.yml down
 
 # Stop all running containers for the project using all compose/*.yml files
-down-all:
+stop-all:
 	$(CONTAINER_RUNTIME) compose $(foreach file,$(wildcard compose/*.yml),-f $(file)) down
 
 # Pattern rule: make logs <name> uses ./compose/<name>.yml
@@ -97,7 +102,11 @@ logs:
 	@echo "Usage: make logs <name>"
 
 logs-%:
-	$(CONTAINER_RUNTIME) compose -f ./compose/$*.yml logs
+	$(CONTAINER_RUNTIME) compose -f ./compose/$*.yml logs -f
+
+# Dump logs for a service (no tail)
+logdump-%:
+	$(CONTAINER_RUNTIME) compose --env-file .env -f ./compose/$*.yml logs
 
 # Print logs for all services defined in compose/*.yml
 log-all:
