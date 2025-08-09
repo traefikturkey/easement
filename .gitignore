@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+coverage.xml
+.htmlcov/
+
+# Environment variables
+# Ignore everything in compose except *.yml files
+compose/*
+!compose/*.yml
+.env
+.env.*
+
+.install-*
+
+# Flask
+instance/
+
+# VS Code
+.history/
+
+# specstory
+.specstory/
+
+# UV
+.venv/

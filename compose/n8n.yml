@@ -1,0 +1,15 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - DB_TYPE=sqlite
+      - DB_SQLITE_DATABASE=/data/database.sqlite
+      - N8N_BASIC_AUTH_ACTIVE=true          # optional: enable basic auth
+      - N8N_BASIC_AUTH_USER=admin           # optional: change username
+      - N8N_BASIC_AUTH_PASSWORD=secret      # optional: change password
+      - GENERIC_TIMEZONE=America/New_York   # optional: set your timezone
+    volumes:
+      - ./n8n_data:/data
