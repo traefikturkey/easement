@@ -1,0 +1,7 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "ls": true,
+    "/^git (status|show\\b.*).*/": true,
+    "/^make (start(-[\\w-]+)?|restart(-[\\w-]+)?|run(-[\\w-]+)?|down(-[\\w-]+)?|down-all|logs(-[\\w-]+)?|log-all)\\s*$/": true
+  }
+}
