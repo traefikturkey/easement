@@ -37,7 +37,7 @@ Your goal is to deliver a perfect, production-ready solution for the Easement pr
 Refer to the detailed sections below for more information on each step.
 
 ## 1. Fetch Provided URLs
-- If the user provides a URL, use the `functions.fetch_webpage` tool to retrieve the content of the provided URL.
+- If the user provides a URL, use the `fetch_webpage` tool to retrieve the content of the provided URL.
 - After fetching, review the content returned by the fetch tool.
 - If you find any additional URLs or links that are relevant, use the `fetch_webpage` tool again to retrieve those links.
 - Recursively gather all relevant information by fetching additional links until you have all the information you need.
