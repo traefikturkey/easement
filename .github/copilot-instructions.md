@@ -24,8 +24,6 @@ This guide helps future Copilot chats add services and features to the Easement 
 - The `.gitignore` is configured to ignore all files in `compose/` except for `*.yml` files.
 
 ## Troubleshooting
-- If a port is already in use, check for running containers or services using that port.
-- For cross-platform compatibility, the Makefile detects your OS and whether you have Docker or Podman.
 
 ## Example: Adding a Service
 1. Add `compose/myservice.yml`.
@@ -33,5 +31,8 @@ This guide helps future Copilot chats add services and features to the Easement 
 3. Run `make logs-myservice` to view logs.
 4. Run `make down-myservice` to stop and remove it.
 
----
 For more details, see the README.md and comments in the Makefile. If you need to add new features or targets, follow the pattern rules and usage instructions shown above.
+## Docker Compose Version Label Rule
+
+**Deprecation Notice:**
+Do NOT use `version:` label in Docker Compose files, they are no longer needed and should be removed. The Compose specification now ignores the `version:` field, and its usage is deprecated. Please omit this label from all new and existing Compose files in this project.
