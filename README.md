@@ -1,6 +1,10 @@
+
 # Easement
 
 Easement is a containerized project managed with Docker Compose and Makefile automation. It provides a flexible way to run, manage, and clean up multiple services using simple `make` commands. The Makefile is cross-platform and detects your OS and whether you are using Docker or Podman.
+
+> **GitHub Copilot Supported:**
+> This project is designed to work well with GitHub Copilot for faster development and automation.
 
 ## Project Structure
 - `compose/`: Contains individual service Compose files (`*.yml`) and related data directories.
